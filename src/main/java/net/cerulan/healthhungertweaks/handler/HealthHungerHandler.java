@@ -19,7 +19,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import squeek.applecore.api.food.FoodEvent;
 import squeek.applecore.api.hunger.ExhaustionEvent;
 import squeek.applecore.api.hunger.HealthRegenEvent;
-import toughasnails.api.stat.capability.IThirst;
 
 public class HealthHungerHandler {	
 	
@@ -91,8 +90,7 @@ public class HealthHungerHandler {
 				int untilStart = hRegenCap.getTicksUntilRegenStart();
 				int untilNext = hRegenCap.getTicksUntilNextRegen();
 				if (event.player.getFoodStats().getFoodLevel() >= HealthHungerTweaks.instance.configHandler.getMinimumHunger()
-						&& (!Loader.isModLoaded("toughasnails") || getThirst(event.player) >= HealthHungerTweaks.instance.configHandler.getMinimumThirst()) // Tough as Nails Integration
-						&& event.player.getHealth() < event.player.getMaxHealth()) {
+						event.player.getHealth() < event.player.getMaxHealth()) {
 					if (untilStart > 0) {
 						untilStart--;
 					} else if (untilStart == 0 && untilNext > 0) {
@@ -130,18 +128,6 @@ public class HealthHungerHandler {
 
 		}
 
-	}
-	
-	/* TOUGH AS NAILS INTEGRATION */
-	
-	@CapabilityInject(IThirst.class)
-	private static final Capability<IThirst> THIRST = null; 
-	
-	private int getThirst(EntityPlayer player) {
-		if (Loader.isModLoaded("toughasnails") && player.hasCapability(THIRST, null)) {
-			return player.getCapability(THIRST, null).getThirst();
-		}
-		return 20;
 	}
 	
 }
