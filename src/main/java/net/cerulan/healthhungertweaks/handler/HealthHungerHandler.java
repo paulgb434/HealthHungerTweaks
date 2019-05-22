@@ -102,9 +102,11 @@ public class HealthHungerHandler {
 						if (!event.player.world.isRemote && event.player.getHealth() < event.player.getMaxHealth()) {
 							if (HealthHungerTweaks.instance.configHandler.getUsePercent()) {
 								event.player.heal((float)(HealthHungerTweaks.instance.configHandler.getPercentAmount() * event.player.getMaxHealth()));
+								event.player.getFoodStats().addExhaustion(6F);
 							}
 							else {
 								event.player.heal((float)(HealthHungerTweaks.instance.configHandler.getStaticAmount()));
+								event.player.getFoodStats().addExhaustion(6F);
 							}
 						}
 					}
