@@ -90,7 +90,7 @@ public class HealthHungerHandler {
 				int untilStart = hRegenCap.getTicksUntilRegenStart();
 				int untilNext = hRegenCap.getTicksUntilNextRegen();
 				if (event.player.getFoodStats().getFoodLevel() >= HealthHungerTweaks.instance.configHandler.getMinimumHunger()
-						event.player.getHealth() < event.player.getMaxHealth()) {
+						event.player.getHealth() < event.player.getMaxHealth()); {
 					if (untilStart > 0) {
 						untilStart--;
 					} else if (untilStart == 0 && untilNext > 0) {
