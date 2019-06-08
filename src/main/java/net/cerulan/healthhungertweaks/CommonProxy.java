@@ -1,13 +1,9 @@
 package net.cerulan.healthhungertweaks;
 
-import net.cerulan.healthhungertweaks.capability.healthbox.HealthBoxCapabilityHandler;
 import net.cerulan.healthhungertweaks.capability.healthregen.HealthRegenCapabilityHandler;
-import net.cerulan.healthhungertweaks.gui.GuiHandler;
 import net.cerulan.healthhungertweaks.handler.HealthHungerHandler;
 import net.cerulan.healthhungertweaks.network.HealthHungerPacketHandler;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -19,17 +15,10 @@ public class CommonProxy {
 	
 	protected HealthHungerHandler handler; 
 	
-	public CreativeTabs creativeTab;
-	
 	public void init() {
 		handler =  new HealthHungerHandler();
 		MinecraftForge.EVENT_BUS.register(handler);
 		packetHandler = new HealthHungerPacketHandler();
-		NetworkRegistry.INSTANCE.registerGuiHandler(HealthHungerTweaks.instance, new GuiHandler());
-		
-		HealthBoxCapabilityHandler healthBoxCapHand = new HealthBoxCapabilityHandler();
-		healthBoxCapHand.register();
-		MinecraftForge.EVENT_BUS.register(healthBoxCapHand);	
 		
 		HealthRegenCapabilityHandler healthRegenCapHand = new HealthRegenCapabilityHandler();
 		healthRegenCapHand.register();
@@ -49,9 +38,6 @@ public class CommonProxy {
 	 */
 	public IThreadListener getThreadFromContext(MessageContext ctx) {
 		return ctx.getServerHandler().player.getServer();
-	}
-
-	public void registerItemRenderer(Item item, int meta, String id) {
 	}
 	
 }
